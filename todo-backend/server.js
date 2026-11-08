@@ -23,7 +23,10 @@ app.post('/todos', (req, res) => {
     res.status(201).json(newTodo);
 })
 
-
+//Get all todo items
+app.get('/todos', (req, res) => {
+    res.json(todos);
+})
 
 //Start the server
 const port = 3000

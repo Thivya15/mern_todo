@@ -4,6 +4,9 @@ const express = require("express");
 //create an instance of express
 const app = express();
 
+//Middleware to parse JSON request bodies
+app.use(express.json());
+
 //Sample in-memory storage for todo items
 let todos = [];
 

@@ -1,5 +1,6 @@
 //Using Express
 const express = require("express");
+const mongoose = require("mongoose");
 
 //create an instance of express
 const app = express();
@@ -9,6 +10,24 @@ app.use(express.json());
 
 //Sample in-memory storage for todo items
 let todos = [];
+
+//connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/mern-app')
+.then(() => {
+    console.log("Connected to MongoDB");
+})
+.catch((err) => {
+    console.error("Error connecting to MongoDB", err);
+});
+
+//Define a schema for todo items
+const todoSchema = new mongoose.Schema({
+    title: String,
+    description: String
+});
+
+//Create a model for todo items
+const Todo = mongoose.model('Todo', todoSchema);
 
 //create a new todo item
 app.post('/todos', (req, res) => {

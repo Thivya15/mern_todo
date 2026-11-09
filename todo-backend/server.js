@@ -1,12 +1,14 @@
 //Using Express
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 //create an instance of express
 const app = express();
 
 //Middleware to parse JSON request bodies
 app.use(express.json());
+app.use(cors());
 
 //Sample in-memory storage for todo items
 let todos = [];
@@ -43,7 +45,7 @@ app.post('/todos', async (req, res) => {
     // todos.push(newTodo);
     // console.log(todos);
     try {
-        const newTodo = new Todo({title, description});
+        const newTodo = new todoModel({title, description});
         await newTodo.save();
         res.status(201).json(newTodo);
     } catch (error) {
@@ -96,7 +98,7 @@ app.delete("/todos/:id", async (req, res) => {
 })
 
 //Start the server
-const port = 3000
+const port = 8000
 app.listen(port, () => {
     console.log("Server is running on port"+ port)
 })

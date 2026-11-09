@@ -83,6 +83,18 @@ app.put("/todos/:id", async (req, res) => {
     }
 })
 
+//Delete a todo item by id
+app.delete("/todos/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        await todoModel.findByIdAndDelete(id);
+        res.status(204).end();
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+})
+
 //Start the server
 const port = 3000
 app.listen(port, () => {

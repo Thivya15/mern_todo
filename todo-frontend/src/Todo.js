@@ -9,6 +9,7 @@ export default function Todo() {
     const apiUrl = "http://localhost:8000"
 
     const handleSubmit = () => {
+        setError("");
         //check inputs
         if (title.trim() !== '' && description.trim() !== '') {
             fetch(apiUrl+"/todos", {
@@ -22,10 +23,15 @@ export default function Todo() {
                     //add item to list
                     setTodos([...todos, { title, description }]);
                     setMessage("Item added successfully!");
+                    setTimeout(() => {
+                        setMessage("");
+                    }, 3000);
                 } else {
                     //set error
                     setError("Unable to create Todo item");
                 }
+            }).catch(() => {
+                setError("Unable to create Todo item");
             })
         }
     }
